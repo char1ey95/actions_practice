@@ -1,13 +1,12 @@
 name: Mango_Market Practice
-run-name: first_workflows
 on:
   push:
     branches:
       - main
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
       - name: install dependencies
       run: npm install
       - name: Build
