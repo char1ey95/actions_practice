@@ -29,8 +29,6 @@ jobs:
       run: echo "${PEM_FILE}" > mango.pem
 
     - name: SSH to remote server using PEM file
-      env:
-        PEM_FILE: ${{ secrets.PEM_FILE}}
       run: ssh -i "mango.pem" ubuntu@ec2-3-35-146-98.ap-northeast-2.compute.amazonaws.com
 
     - name: Access
