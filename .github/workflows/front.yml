@@ -23,9 +23,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-    - name: Create_pem
-      run: echo ${{ secrets.PEM_FILE }} | base64 --decode > frontkey.pem
-
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.PEM_FILE }}
+        
     - name: Public_DNS
       run: PUBLIC_DNS=$(aws ec2 describe-instances --instance-ids i-07e57be2969f26e26 --query 'Reservations[*].Instances[*].PublicDnsName' --output text)
     
