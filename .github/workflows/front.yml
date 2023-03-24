@@ -28,11 +28,8 @@ jobs:
         PEM_FILE: ${{ secrets.PEM_FILE}}
       run: echo "${PEM_FILE}" > mango.pem
 
-    - name: console
-      run: echo $(ls)
-
     - name: SSH to remote server using PEM file
-      run: ssh -i "mango.pem" ubuntu@ec2-3-35-146-98.ap-northeast-2.compute.amazonaws.com
+      run: ssh -i mango.pem ubuntu@ec2-3-35-146-98.ap-northeast-2.compute.amazonaws.com
 
     - name: Access
       run: exit
