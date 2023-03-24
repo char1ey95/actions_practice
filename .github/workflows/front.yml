@@ -23,19 +23,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-    - name: console
-      run: echo ${{ secrets.PEM_FILE }}
+    - name: Use PEM file in GitHub Actions
+      env:
+        PEM_FILE: ${{ secrets.PEM_FILE}}
+      run: echo "${PEM_FILE}" > mango.pem
 
-    - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.PEM_FILE }}
-
-    - name: Public_DNS
-      run: PUBLIC_DNS=$(aws ec2 describe-instances --instance-ids i-07e57be2969f26e26 --query 'Reservations[*].Instances[*].PublicDnsName' --output text)
-    
-    - name: console
-      run: echo $PUBLIC_DNS
+    - name: SSH to remote server using PEM file
+      env:
+        PEM_FILE: ${{ secrets.PEM_FILE}}
+      run: ssh -i "mango.pem" ubuntu@ec2-3-35-146-98.ap-northeast-2.compute.amazonaws.com
 
     # steps:
     # - name: cd front
