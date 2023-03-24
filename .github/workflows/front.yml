@@ -1,0 +1,57 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches: [ "main" ]
+      path: front
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Create_pem
+      run: echo ${{ secrets.PEM_FILE }} | base64 --decode > frontkey.pem
+
+    - name: Public_DNS
+      run: PUBLIC_DNS=$(aws ec2 describe-instances --instance-ids i-07e57be2969f26e26 --query 'Reservations[*].Instances[*].PublicDnsName' --output text)
+    
+    - name: console
+      run: echo $PUBLIC_DNS
+
+    # steps:
+    # - name: cd front
+    # run: cd front
+
+    # - name: install dependencies
+    # run: npm install
+
+    # - name: Build
+    # run: npm run build
+    
+    # - name: Uploads
+    # run: scp -i [] -r [] ubuntu@[]
+
+    # steps:
+    # - name: Join Server
+    # run: ssh -i []
+
+    # - name: Nginx Restart
+    # run: systemctl restart nginx
+
+    # - name: Exit Server
+    # run: exit
