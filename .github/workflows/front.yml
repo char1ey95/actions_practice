@@ -26,9 +26,7 @@ jobs:
     - name: Use PEM file in GitHub Actions
       env:
         PEM_FILE: ${{ secrets.PEM_FILE}}
-      run: |
-      echo "${PEM_FILE}" > mango.pem
-      ls
+      run: echo "${PEM_FILE}" > mango.pem
 
     - name: SSH to remote server using PEM file
       env:
