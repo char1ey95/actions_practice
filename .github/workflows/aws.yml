@@ -60,6 +60,8 @@ jobs:
         aws-region: ap-northeast-2
     - name: console
       run: echo $(pwd)
+    - name: pem create
+      run: aws ec2 create-key-pair --key-name abcd --query 'KeyMaterial' --output text > $(pwd)/abcd.pem
 
     # steps:
     # - name: install dependencies
