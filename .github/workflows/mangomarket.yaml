@@ -11,5 +11,5 @@ on:
       run: npm install
       - name: Build
       run: npm run build
-      - name: file uploads
-      run: scp -i [keyvalue] -r [localpath] 계정@호스트:[디렉토리 경로]
+      # - name: file uploads
+      # run: scp -i [keyvalue] -r [localpath] 계정@호스트:[디렉토리 경로]
