@@ -60,10 +60,10 @@ jobs:
         aws-region: ap-northeast-2
     - name: console
       run: echo $(pwd)
-      
-    steps:
-    - name: install dependencies
-    run: npm install
-    - name: Build
-    run: npm run build
+
+    # steps:
+    # - name: install dependencies
+    # run: npm install
+    # - name: Build
+    # run: npm run build
     
