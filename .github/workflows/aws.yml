@@ -60,9 +60,7 @@ jobs:
         aws-region: ap-northeast-2
     - name: console
       run: echo $(pwd)
-
-jobs:
-    runs-on: ubuntu-latest
+      
     steps:
     - name: install dependencies
     run: npm install
