@@ -1,0 +1,27 @@
+name: AWS EC2 파일 업로드
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  aws-ec2-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: ssh-private-key
+
+      - name: Install scp
+        run: sudo apt-get install -y scp
+
+      - name: Upload file to EC2 instance
+        run: |
+          scp -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY_PATH }} path/to/local/file ubuntu@ec2-3-35-209-195.ap-northeast-2.compute.amazonaws.com
+        env:
+          SSH_PRIVATE_KEY_PATH: ${{ github.workspace }}/ssh-private-key
