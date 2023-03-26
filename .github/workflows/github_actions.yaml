@@ -34,4 +34,4 @@ jobs:
         echo $(pwd)
         echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
         echo $(ls)
-        scp -i ./githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}
+        scp -i ./githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/www
