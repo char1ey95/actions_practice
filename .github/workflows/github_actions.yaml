@@ -17,12 +17,10 @@ jobs:
         sudo apt-get install -y npm
     - name: Build React app
       run: |
-        echo $(pwd)
         cd front
-        echo $(pwd)
-        echo $(ls)
         npm install
         npm run build
+        echo $(ls)
     # - name: Upload build folder to EC2 instance
     #   uses: easingthemes/ssh-deploy@v2.1.5
     #   with:
