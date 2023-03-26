@@ -33,4 +33,5 @@ jobs:
       run: |
         echo $(pwd)
         echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
-        scp -i ./githubAction.pem -r 
+        echo $(ls)
+        scp -i ./githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}
