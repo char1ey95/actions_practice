@@ -32,6 +32,6 @@ jobs:
     - name: Upload build floder to EC2 instance
       run: |
         echo $(pwd)
-        echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
+        echo ${{ secrets.SSH_PEM_FILE }} | base64 --decodes  > githubAction.pem
         echo $(ls)
         scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/www
