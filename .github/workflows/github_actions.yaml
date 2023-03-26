@@ -1,6 +1,7 @@
 name: Build and upload React app to EC2 instance
 on:
-  pull_request:
+  # pull_request:
+  push:
     branches:
       - main
 jobs:
