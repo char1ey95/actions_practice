@@ -10,15 +10,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Install dependencies/front
+    - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y nodejs
         sudo apt-get install -y npm
+    - name: Build React app
+      run: |
+        echo $(pwd)
         cd front
         npm install
-    - name: Build React app
-      run: npm run build
+        npm run build
     # - name: Upload build folder to EC2 instance
     #   uses: easingthemes/ssh-deploy@v2.1.5
     #   with:
