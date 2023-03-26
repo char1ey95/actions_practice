@@ -1,0 +1,33 @@
+name: Build and upload React app to EC2 instance
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install dependencies/front
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nodejs
+        sudo apt-get install -y npm
+        cd front
+        npm install
+    - name: Build React app
+      run: npm run build
+    # - name: Upload build folder to EC2 instance
+    #   uses: easingthemes/ssh-deploy@v2.1.5
+    #   with:
+    #     server: ${{ secrets.EC2_SERVER }}
+    #     username: ${{ secrets.EC2_USERNAME }}
+    #     key: ${{ secrets.EC2_KEY }}
+    #     source: build/
+    #     target: /var/www/html/
+    - name: Upload build floder to EC2 instance
+      run: |
+        echo $(pwd)
+        echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
+        scp -i ./githubAction.pem -r 
