@@ -19,6 +19,8 @@ jobs:
       run: |
         echo $(pwd)
         cd front
+        echo $(pwd)
+        echo $(ls)
         npm install
         npm run build
     # - name: Upload build folder to EC2 instance
