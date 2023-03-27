@@ -27,6 +27,7 @@ jobs:
         EC2_HOST: ${{ secrets.EC2_HOST }}
       run: |
         echo "${SSH_PEM_FILE}" > githubAction.pem
+        chmod 600 githubAction.pem
         mkdir -p ~/.ssh
         ssh-keyscan -t rsa ${EC2_HOST} >> ~/.ssh/known_hosts
         scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${EC2_USER}@${EC2_HOST}:/home/ubuntu/www
