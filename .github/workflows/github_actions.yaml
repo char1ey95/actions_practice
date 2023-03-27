@@ -20,22 +20,26 @@ jobs:
         cd front
         npm install
         npm run build
-    # - name: Upload build floder to EC2 instance
-    #   run: |
-    #     echo $(pwd)
-    #     echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
-    #     echo $(ls)
-    #     scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/www
-    - name: Upload to EC2
-      uses: appleboy/scp-action@master
+    - name: Upload build floder to EC2 instance
       env:
         SSH_PEM_FILE: ${{ secrets.SSH_PEM_FILE }}
-        EC2_HOST: ${{ secrets.EC2_HOST }}
         EC2_USER: ${{ secrets.EC2_USER }}
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+      run: |
+        echo $(pwd)
+        echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
+        echo $(ls)
+        scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/www
+    # - name: Upload to EC2
+    #   uses: appleboy/scp-action@master
+    #   env:
+    #     SSH_PEM_FILE: ${{ secrets.SSH_PEM_FILE }}
+    #     EC2_HOST: ${{ secrets.EC2_HOST }}
+    #     EC2_USER: ${{ secrets.EC2_USER }}
 
-      with:
-        local: 'build/'
-        remote_path: '/home/ec2-user/react-build/'
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_PEM_FILE }}
+    #   with:
+    #     local: 'build/'
+    #     remote_path: '/home/ec2-user/react-build/'
+    #     host: ${{ secrets.EC2_HOST }}
+    #     username: ${{ secrets.EC2_USER }}
+    #     key: ${{ secrets.SSH_PEM_FILE }}
