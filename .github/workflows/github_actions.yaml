@@ -26,10 +26,8 @@ jobs:
         EC2_USER: ${{ secrets.EC2_USER }}
         EC2_HOST: ${{ secrets.EC2_HOST }}
       run: |
-        echo $(pwd)
-        echo ${{ secrets.SSH_PEM_FILE }} > githubAction.pem
-        echo $(ls)
-        scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/www
+        echo "${SSH_PEM_FILE}" > githubAction.pem
+        scp -i /home/runner/work/actions_practice/actions_practice/githubAction.pem -r ./build ${EC2_USER}@${EC2_HOST}:/home/ubuntu/www
     # - name: Upload to EC2
     #   uses: appleboy/scp-action@master
     #   env:
